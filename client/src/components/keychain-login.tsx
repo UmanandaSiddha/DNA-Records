@@ -14,6 +14,31 @@ declare global {
 }
 
 // --------------- YOUR ACCOUNT -------------
+// Username: shivaji2428
+// Password: uEvDAhzzaTUmNopgTR4QuEvjMovWYfpg
+
+// ------------------------ PRIVATE KEYS ----------------------
+// Owner:   5HszwAQbv7KrR3QQAkDSX1DjTxwx3Q7tmiPCXLZcRsxFBWJRDRm
+// Active:  5JRive5QAps8FBHrKuyf8hsvVbRVGdcZM1rYDEYRvWcba2cZSKN
+// Posting: 5KCbFaTECFJZ884sgKguAeiX1etL5SL3LcmZ2hzqtarpGgj2Lso
+// Memo:    5JoMtaby6QkPw7rSMt657z4ZXwBnzH8bMgdaZvRBkew943Rr1zS
+
+// -------------------------- KEY DESCRIPTION -----------------------
+// Owner:   Change Password, Change Keys, Recover Account
+// Active:  Transfer Funds, Power up/down, Voting Witnesses/Proposals
+// Posting: Post, Comment, Vote, Reblog, Follow, Profile
+// Memo:    Send/View encrypted messages on transfers
+
+// ---------------------- WHERE TO USE YOUR KEYS --------------------
+// Hive Keychain and Hive Signer should allow you to do transactions
+// on all Hive sites and applications.
+
+// PeakD.com allows your own browser to store Posting key via
+// "PeakLock" login method (an alternative for mobile).
+
+// Be very careful directly using your keys on any other website or application.
+
+// --------------- YOUR ACCOUNT -------------
 // Username: shivaji9407
 // Password: 6LBfJtUrT5Yw9mWTHnmoERweS2B2pTWK
 
@@ -56,6 +81,15 @@ const getKeychainDownloadLink = (): string => {
     return "https://hive-keychain.com/";
 };
 
+// {
+//     "username": "siddha2428"
+//     "password": "a201aa0e8065855e5a08d18d649cb3e0",
+//     "owner": "5JAoohXkWEVkpMMepgfxKcDTF8rEeGxWUct2vKpvSSCSqihJuXd",
+//     "active": "5J5k1yC7yisU3oeUaAja9gUirMv5ExeQB97Q8BzbHMiTyXYS2LQ",
+//     "posting": "5KcM1dvMRpJUr1dcFwQk3xw82yibUDD338LkQ4Le8Rheu94jvVC",
+//     "memo": "5JjKmtPVPS1Zb3wsXyCWgrwaCBCZgMDqdSBfRg36eips25qDev4"
+// }
+
 export default function HiveAuth() {
     const [username, setUsername] = useState<string>("");
     const [message, setMessage] = useState<string>("");
@@ -92,6 +126,7 @@ export default function HiveAuth() {
             challenge,
             "Posting",
             (response) => {
+                console.log(response)
                 if (response.success) {
                     localStorage.setItem("hive_user", username);
                     setMessage("Login Successful!");
