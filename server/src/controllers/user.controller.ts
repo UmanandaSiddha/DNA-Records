@@ -15,7 +15,7 @@ export const signInUser = catchAsyncErrors(async (req: Request, res: Response, n
     if (!user) {
         user = await User.create({
             hiveUser,
-            hivePublicKey,
+            publicKey: hivePublicKey,
         })
     }
 
@@ -124,9 +124,8 @@ export const logoutUser = catchAsyncErrors(async (req: Request, res: Response, n
 });
 
 export const getUserDetails = catchAsyncErrors(async (req: UserRequest, res: Response, next: NextFunction): Promise<void> => {
-    const user = await User.findById(req.user?._id)
-        .populate("access.latestSubscription", "planId status currentEnd")
-        .lean();
+    const { user } = req;
+    if (!user) return next(new ErrorHandler("User not found", StatusCodes.NOT_FOUND));
 
     res.status(200).json({
         success: true,

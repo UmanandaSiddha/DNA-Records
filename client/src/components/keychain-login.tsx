@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { signInUser } from "../services/user.services";
+import { userExist } from "../redux/reducer/user.reducer";
+import { useDispatch } from "react-redux";
 
 declare global {
     interface Window {
@@ -7,7 +10,14 @@ declare global {
                 username: string,
                 message: string,
                 keyType: "Posting" | "Active" | "Memo",
-                callback: (response: { success: boolean; error?: string }) => void
+                callback: (response: {
+                    success: boolean;
+                    data: {
+                        username: string;
+                    }
+                    publicKey: string;
+                    error?: string
+                }) => void
             ) => void;
         };
     }
@@ -91,11 +101,12 @@ const getKeychainDownloadLink = (): string => {
 // }
 
 export default function HiveAuth() {
-    const [username, setUsername] = useState<string>("");
+    const [username, setUsername] = useState<string>(window.localStorage.getItem("hive_user") || "");
     const [message, setMessage] = useState<string>("");
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
     const [keychainAvailable, setKeychainAvailable] = useState<boolean>(false);
     const [downloadLink, setDownloadLink] = useState<string>("");
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setDownloadLink(getKeychainDownloadLink());
@@ -107,7 +118,7 @@ export default function HiveAuth() {
             if (typeof window !== "undefined" && window.hive_keychain) {
                 setKeychainAvailable(true);
             } else {
-                setTimeout(checkKeychain, 1000); // Retry after 1 second
+                setTimeout(checkKeychain, 1000);
             }
         };
         checkKeychain();
@@ -125,10 +136,11 @@ export default function HiveAuth() {
             username,
             challenge,
             "Posting",
-            (response) => {
-                console.log(response)
+            async (response) => {
                 if (response.success) {
                     localStorage.setItem("hive_user", username);
+                    const data = await signInUser(response.data.username, response.publicKey);
+                    dispatch(userExist(data.user));
                     setMessage("Login Successful!");
                     setLoggedIn(true);
                 } else {
