@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import HiveAuth from "../components/keychain-login";
 import { RootState } from "../redux/store";
 import FileUpload from "../components/file-upload";
+import UpdateProfile from "../components/update-profile";
 
 const HomePage = () => {
 
@@ -14,10 +15,7 @@ const HomePage = () => {
             Home Page
             {user ? (
                 <>
-                    <p>Welcome {user.hiveUser}</p>
-                    {!user?.firstName && (
-                        <input type="text" />
-                    )}
+                    <UpdateProfile />
                     {user.dnaFile ? (
                         <p>file: {user.dnaFile}</p>
                     ) : (
