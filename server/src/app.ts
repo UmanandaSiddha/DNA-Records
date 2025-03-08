@@ -7,6 +7,7 @@ import ErrorMiddleware from "./middlewares/error.js";
 
 import user from "./routes/user.route.js";
 import dna from "./routes/dna.route.js";
+import admin from "./routes/admin.route.js";
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(express.static("public"));
 
 app.use("/api/v1/user", user);
 app.use("/api/v1/dna", dna);
+app.use("/api/v1/admin", admin);
 
 app.use(ErrorMiddleware);
 
