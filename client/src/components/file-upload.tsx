@@ -37,7 +37,6 @@ const FileUpload = () => {
                 username,
                 "dna_records",
                 "Posting",
-                
                 JSON.stringify(transactionData),
                 "Upload DNA Record to Hive",
                 async (response) => {
