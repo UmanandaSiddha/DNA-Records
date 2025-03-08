@@ -3,26 +3,6 @@ import { signInUser } from "../services/user.services";
 import { userExist } from "../redux/reducer/user.reducer";
 import { useDispatch } from "react-redux";
 
-declare global {
-    interface Window {
-        hive_keychain?: {
-            requestSignBuffer: (
-                username: string,
-                message: string,
-                keyType: "Posting" | "Active" | "Memo",
-                callback: (response: {
-                    success: boolean;
-                    data: {
-                        username: string;
-                    }
-                    publicKey: string;
-                    error?: string
-                }) => void
-            ) => void;
-        };
-    }
-}
-
 const getKeychainDownloadLink = (): string => {
     const userAgent = navigator.userAgent.toLowerCase();
 

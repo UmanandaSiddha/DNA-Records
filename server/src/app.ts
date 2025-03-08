@@ -6,6 +6,7 @@ import helmet from "helmet";
 import ErrorMiddleware from "./middlewares/error.js";
 
 import user from "./routes/user.route.js";
+import dna from "./routes/dna.route.js";
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.static("public"));
 
 app.use("/api/v1/user", user);
+app.use("/api/v1/dna", dna);
 
 app.use(ErrorMiddleware);
 

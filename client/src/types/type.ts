@@ -15,6 +15,7 @@ export interface IUser {
     isVerified: boolean;
     oneTimePassword?: string;
     oneTimeExpire?: Date;
+    dnaFile?: string;
     createdAt: Date;
     updatedAt: Date;
 }

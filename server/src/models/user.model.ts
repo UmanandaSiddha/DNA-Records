@@ -19,6 +19,7 @@ export interface IUser extends Document {
     isVerified: boolean;
     oneTimePassword?: string;
     oneTimeExpire?: Date;
+    dnaFile?: mongoose.Schema.Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
 
@@ -50,6 +51,10 @@ const UserSchema: Schema<IUser> = new mongoose.Schema(
         },
         oneTimePassword: String,
         oneTimeExpire: Date,
+        dnaFile: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "DNAFile",
+        },
     },
     {
         timestamps: true,
